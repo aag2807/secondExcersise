@@ -1,0 +1,134 @@
+﻿@page
+@model NominaModel
+@{
+
+}
+
+<h4 class="align-center">Monto</h4>
+<main class="table-container">
+	<table style="width:80%">
+		<tr class="header">
+			<th style="padding-left:15px">Nombre</th>
+			<th>Apellido</th>
+			<th>Cargo</th>
+			<th>Salario</th>
+			<th>SFS</th>
+			<th>AFP</th>
+			<th>ISR</th>
+			<th style="height:41px;">Descuentos</th>
+			<th style="padding-left:15px;width:110px;">Monto final</th>
+		</tr>
+		@foreach (var item in @Model.workers)
+		{
+			<tr class="cell">
+				<td>
+					<div class="container">
+						<div class="icon-container">
+							<i class="ri-user-fill"></i>
+						</div>
+						@item.Nombre
+					</div>
+				</td>
+				<td>@item.Apellido</td>
+				<td>@item.Cargo</td>
+				<td>$@item.Salario</td>
+				<td class="net-pay-item">
+					$@Model.CalcSFS((int)@item.Salario)
+				</td>
+				<td class="net-pay-item">
+					$@Model.CalcAFP((int)@item.Salario)
+				</td>
+				<td class="net-pay-item">
+					$@Model.CalcISR((int)@item.Salario)
+				</td>
+				<td class="net-pay-item">
+					$@Model.CalcAllDeductions((int)@item.Salario)
+				</td>
+				<td class="net-pay-item">
+					$@Model.CalcTakeHomeSalary((int)@item.Salario)
+				</td>
+			</tr>
+		}
+
+	</table>
+
+
+</main>
+
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+
+	td,
+	th {
+		padding: 8px;
+	}
+
+	tr {
+		position: relative;
+		border: 1px solid #EEF1F4;
+		transition: all ease-in 100ms;
+	}
+
+	.cell:hover {
+		background: #F6F8FD;
+		cursor: pointer;
+		border-left: 3px solid #136FDF;
+	}
+
+
+	.cell:hover::before {
+		background: blue;
+		width: 3px;
+	}
+
+	td>.container {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	td>.container>.icon-container {
+		height: 30px;
+		width: 30px;
+		margin-right: 20px;
+		border-radius: 50%;
+		background: #99939380;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.header {
+		background-color: #F8F9FE;
+	}
+
+	.header>th {
+		color: #4F6179;
+	}
+
+	.cell {
+		color: #414953;
+		font-weight: 400;
+	}
+
+	.table-container {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+
+	}
+
+	.net-pay-item {
+		height: 47px;
+	}
+
+
+	}
+</style>
